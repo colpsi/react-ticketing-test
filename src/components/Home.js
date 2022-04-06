@@ -1,7 +1,8 @@
 import { useState } from "react";
-import Tickets from "../components/TicketTable";
-//import SearchInput from "../components/SearchInput";
+import TicketTable from "./TicketTable";
+import SearchInput from "./SearchInput";
 import { Link } from "react-router-dom";
+import { Button } from "semantic-ui-react";
 
 export default function Home({ tickets = getStaticProps() }) {
   const [keyword, setKeyword] = useState("");
@@ -23,18 +24,20 @@ export default function Home({ tickets = getStaticProps() }) {
     <>
       <div>
         <div>Found {tickets.length} tickets</div>
-        {/* <div>
+        <div>
           <SearchInput
             placeholder="Filter by Name, Assigne or Status"
             onChange={onInputChange}
           />
-        </div> */}
+        </div>
       </div>
 
-      <Tickets tickets={filteredTicket} />
-      <button>
-        New Ticket <Link />
-      </button>
+      <TicketTable tickets={filteredTicket} />
+      <Link to="ticket/new">
+        <Button renderAs="button">
+          <p>New Ticket</p>
+        </Button>
+      </Link>
     </>
   );
 }

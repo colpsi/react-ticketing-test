@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { Button } from "semantic-ui-react";
 
 export default function NewTicketForm() {
   const [ticketName, setTicketName] = useState("");
@@ -63,6 +65,11 @@ export default function NewTicketForm() {
       <button disabled={Boolean(error)} type="submit">
         Submit
       </button>
+      <Link to="/">
+        <Button renderAs="button">
+          <p>Cancel</p>
+        </Button>
+      </Link>
     </form>
   );
 }
