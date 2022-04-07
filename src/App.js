@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 // import Home component
 import Home from "./components/Home";
+import Ticket from "./components/ticket/[id]";
 
 // import About component
 import NewTicket from "./components/ticket/NewTicket";
@@ -19,13 +20,7 @@ function App() {
 
           <Route path="/ticket/new" element={<NewTicket />} />
 
-          <Route
-            path="/ticket/:id"
-            render={(props) => {
-              console.log(props);
-              return <TicketDetails {...props} />;
-            }}
-          />
+          <Route path="/ticket/:id" element={<Ticket />} />
         </Routes>
       </Router>
     </>

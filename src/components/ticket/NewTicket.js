@@ -6,28 +6,42 @@ export default function NewTicketForm() {
   const [ticketName, setTicketName] = useState("");
   const [description, setDescription] = useState("");
   const [email, setEmail] = useState("");
-  const [count, setCount] = useState(1);
-  const [tickets, setTickets] = useState(1);
+  const [count, setCount] = useState(0);
+  const [tickets, setTickets] = useState();
   const isLowerCase = ticketName === ticketName.toLowerCase();
   const error = isLowerCase ? null : "Username must be lower case";
 
   // Side Effects / Lifecycle
   useEffect(() => {
     const existingTickets = localStorage.getItem("tickets");
+    const tickets = JSON.parse(existingTickets) || [];
+
+    tickets.forEach((ticket) => {
+      if (ticket.id > count) {
+        setCount(ticket.id + 1);
+      }
+    });
+
+    setTickets(tickets);
+  }, []);
+
+  useEffect(() => {
+    const existingTickets = localStorage.getItem("tickets");
     setTickets(existingTickets ? JSON.parse(existingTickets) : []);
   }, []);
 
   function handleSubmit(event) {
-    event.preventDefault();
-    setDescription(event.target.elements.descriptionInput.value);
+    //event.preventDefault();
+    setDescription();
+    setCount(count + 1);
     const ticket = {
       id: count,
       ticketName: `${ticketName}`,
-      description: `${description}`,
+      description: `${event.target.elements.descriptionInput.value}`,
       email: `${email}`,
       status: "open"
     };
-    setCount(count + 1);
+
     const next = [...tickets, ticket];
 
     localStorage.setItem("tickets", JSON.stringify(next));

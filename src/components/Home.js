@@ -47,5 +47,5 @@ export const getStaticProps = () => {
   const tickets = JSON.parse(res);
 
   console.log(tickets);
-  return tickets;
+  return tickets || [];
 };
